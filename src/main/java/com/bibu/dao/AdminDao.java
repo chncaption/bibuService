@@ -1,6 +1,7 @@
 package com.bibu.dao;
 
 import com.bibu.entity.Admin;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.data.domain.Pageable;
 
@@ -12,6 +13,7 @@ import java.util.List;
  * @author WeitJack
  * @since 2022-01-04 21:59:39
  */
+@Mapper
 public interface AdminDao {
 
     /**
