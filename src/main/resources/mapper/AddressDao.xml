@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bibu.dao.AddressDao">
+
+    <resultMap type="com.bibu.entity.Address" id="AddressMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="provincialCode" column="provincial_code" jdbcType="VARCHAR"/>
+        <result property="provincialName" column="provincial_name" jdbcType="VARCHAR"/>
+        <result property="cityCode" column="city_code" jdbcType="VARCHAR"/>
+        <result property="cityName" column="city_name" jdbcType="VARCHAR"/>
+        <result property="areaCode" column="area_code" jdbcType="VARCHAR"/>
+        <result property="areaName" column="area_name" jdbcType="VARCHAR"/>
+        <result property="isHot" column="is_hot" jdbcType="INTEGER"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="AddressMap">
+        select
+          id, provincial_code, provincial_name, city_code, city_name, area_code, area_name, is_hot, status
+        from address
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="AddressMap">
+        select
+        id, provincial_code, provincial_name, city_code, city_name, area_code, area_name, is_hot, status
+        from address
+        <where>
+            <if test="address.id != null">
+                and id = #{address.id}
+            </if>
+            <if test="address.provincialCode != null and address.provincialCode != ''">
+                and provincial_code = #{address.provincialCode}
+            </if>
+            <if test="address.provincialName != null and address.provincialName != ''">
+                and provincial_name = #{address.provincialName}
+            </if>
+            <if test="address.cityCode != null and address.cityCode != ''">
+                and city_code = #{address.cityCode}
+            </if>
+            <if test="address.cityName != null and address.cityName != ''">
+                and city_name = #{address.cityName}
+            </if>
+            <if test="address.areaCode != null and address.areaCode != ''">
+                and area_code = #{address.areaCode}
+            </if>
+            <if test="address.areaName != null and address.areaName != ''">
+                and area_name = #{address.areaName}
+            </if>
+            <if test="address.isHot != null">
+                and is_hot = #{address.isHot}
+            </if>
+            <if test="address.status != null">
+                and status = #{address.status}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from address
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="provincialCode != null and provincialCode != ''">
+                and provincial_code = #{provincialCode}
+            </if>
+            <if test="provincialName != null and provincialName != ''">
+                and provincial_name = #{provincialName}
+            </if>
+            <if test="cityCode != null and cityCode != ''">
+                and city_code = #{cityCode}
+            </if>
+            <if test="cityName != null and cityName != ''">
+                and city_name = #{cityName}
+            </if>
+            <if test="areaCode != null and areaCode != ''">
+                and area_code = #{areaCode}
+            </if>
+            <if test="areaName != null and areaName != ''">
+                and area_name = #{areaName}
+            </if>
+            <if test="isHot != null">
+                and is_hot = #{isHot}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into address(provincial_code, provincial_name, city_code, city_name, area_code, area_name, is_hot, status)
+        values (#{provincialCode}, #{provincialName}, #{cityCode}, #{cityName}, #{areaCode}, #{areaName}, #{isHot}, #{status})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into address(provincial_code, provincial_name, city_code, city_name, area_code, area_name, is_hot,
+        status)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.provincialCode}, #{entity.provincialName}, #{entity.cityCode}, #{entity.cityName},
+            #{entity.areaCode}, #{entity.areaName}, #{entity.isHot}, #{entity.status})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into address(provincial_code, provincial_name, city_code, city_name, area_code, area_name, is_hot,
+        status)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.provincialCode}, #{entity.provincialName}, #{entity.cityCode}, #{entity.cityName},
+            #{entity.areaCode}, #{entity.areaName}, #{entity.isHot}, #{entity.status})
+        </foreach>
+        on duplicate key update
+        provincial_code = values(provincial_code),
+        provincial_name = values(provincial_name),
+        city_code = values(city_code),
+        city_name = values(city_name),
+        area_code = values(area_code),
+        area_name = values(area_name),
+        is_hot = values(is_hot),
+        status = values(status)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update address
+        <set>
+            <if test="provincialCode != null and provincialCode != ''">
+                provincial_code = #{provincialCode},
+            </if>
+            <if test="provincialName != null and provincialName != ''">
+                provincial_name = #{provincialName},
+            </if>
+            <if test="cityCode != null and cityCode != ''">
+                city_code = #{cityCode},
+            </if>
+            <if test="cityName != null and cityName != ''">
+                city_name = #{cityName},
+            </if>
+            <if test="areaCode != null and areaCode != ''">
+                area_code = #{areaCode},
+            </if>
+            <if test="areaName != null and areaName != ''">
+                area_name = #{areaName},
+            </if>
+            <if test="isHot != null">
+                is_hot = #{isHot},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from address where id = #{id}
+    </delete>
+
+</mapper>
+
