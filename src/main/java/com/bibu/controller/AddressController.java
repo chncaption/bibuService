@@ -17,7 +17,7 @@ import javax.annotation.Resource;
  * @since 2022-01-03 16:07:52
  */
 @RestController
-@RequestMapping("address")
+@RequestMapping("api")
 public class AddressController {
     /**
      * 服务对象
@@ -31,7 +31,7 @@ public class AddressController {
      * @param address     筛选条件
      * @return 查询结果
      */
-    @PostMapping("/list")
+    @PostMapping("/list")  //pagenum,pagesize,sorttype,
     public ResponseEntity<Page<Address>> queryByPage(@RequestBody Address address) {
         PageRequest pageRequest = QueryTool.buildPageRequest(address.getPageNum(),address.getPageSize(), address.getSortType(), address.getSortField());
         return ResponseEntity.ok(this.addressService.queryByPage(address, pageRequest));
