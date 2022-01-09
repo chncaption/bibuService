@@ -2,9 +2,7 @@ package com.bibu.controller;
 
 import com.bibu.entity.Address;
 import com.bibu.service.AddressService;
-import com.bibu.tool.QueryTool;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import com.github.pagehelper.PageInfo;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,7 +15,7 @@ import javax.annotation.Resource;
  * @since 2022-01-03 16:07:52
  */
 @RestController
-@RequestMapping("api")
+@RequestMapping("api/address")
 public class AddressController {
     /**
      * 服务对象
@@ -31,10 +29,9 @@ public class AddressController {
      * @param address     筛选条件
      * @return 查询结果
      */
-    @PostMapping("/list")  //pagenum,pagesize,sorttype,
-    public ResponseEntity<Page<Address>> queryByPage(@RequestBody Address address) {
-        PageRequest pageRequest = QueryTool.buildPageRequest(address.getPageNum(),address.getPageSize(), address.getSortType(), address.getSortField());
-        return ResponseEntity.ok(this.addressService.queryByPage(address, pageRequest));
+    @PostMapping("/list")  //pageNum,pageSize,sortField,
+    public ResponseEntity<PageInfo<Address>> queryByPage(@RequestBody Address address) {
+        return ResponseEntity.ok(this.addressService.queryByPage(address));
     }
 
     /**

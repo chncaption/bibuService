@@ -1,8 +1,7 @@
 package com.bibu.service;
 
 import com.bibu.entity.Address;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import com.github.pagehelper.PageInfo;
 
 /**
  * 地区表(Address)表服务接口
@@ -24,10 +23,9 @@ public interface AddressService {
      * 分页查询
      *
      * @param address     筛选条件
-     * @param pageRequest 分页对象
      * @return 查询结果
      */
-    Page<Address> queryByPage(Address address, PageRequest pageRequest);
+    PageInfo<Address> queryByPage(Address address);
 
     /**
      * 新增数据

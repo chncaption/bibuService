@@ -3,7 +3,6 @@ package com.bibu.dao;
 import com.bibu.entity.Address;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -28,10 +27,9 @@ public interface AddressDao {
      * 查询指定行数据
      *
      * @param address  查询条件
-     * @param pageable 分页对象
      * @return 对象列表
      */
-    List<Address> queryAllByLimit(@Param("address") Address address, @Param("pageable") Pageable pageable);
+    List<Address> queryAllByLimit(@Param("address") Address address);
 
     /**
      * 统计总行数

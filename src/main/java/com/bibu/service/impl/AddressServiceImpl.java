@@ -3,12 +3,12 @@ package com.bibu.service.impl;
 import com.bibu.entity.Address;
 import com.bibu.dao.AddressDao;
 import com.bibu.service.AddressService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * 地区表(Address)表服务实现类
@@ -36,13 +36,14 @@ public class AddressServiceImpl implements AddressService {
      * 分页查询
      *
      * @param address     筛选条件
-     * @param pageRequest 分页对象
      * @return 查询结果
      */
     @Override
-    public Page<Address> queryByPage(Address address, PageRequest pageRequest) {
-        long total = this.addressDao.count(address);
-        return new PageImpl<>(this.addressDao.queryAllByLimit(address, pageRequest), pageRequest, total);
+    public PageInfo<Address> queryByPage(Address address) {
+        PageHelper.startPage(address.getPageNum(),address.getPageSize(), address.getSortField());
+        List<Address> models = this.addressDao.queryAllByLimit(address);
+        PageInfo<Address> pageInfo = new PageInfo<>(models);
+        return pageInfo;
     }
 
     /**
