@@ -8,8 +8,6 @@ public class PageBean {
     @JSONField(serialize = false)
     private int pageSize;
     @JSONField(serialize = false)
-    private String sortType;
-    @JSONField(serialize = false)
     private String sortField;
 
     public int getPageNum() {
@@ -26,14 +24,6 @@ public class PageBean {
 
     public void setPageSize(int pageSize) {
         this.pageSize = pageSize;
-    }
-
-    public String getSortType() {
-        return sortType;
-    }
-
-    public void setSortType(String sortType) {
-        this.sortType = sortType;
     }
 
     public String getSortField() {

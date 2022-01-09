@@ -29,7 +29,7 @@ public class AddressController {
      * @param address     筛选条件
      * @return 查询结果
      */
-    @PostMapping("/list")  //pageNum,pageSize,sortField,
+    @PostMapping("list")  //pageNum,pageSize,sortField
     public ResponseEntity<PageInfo<Address>> queryByPage(@RequestBody Address address) {
         return ResponseEntity.ok(this.addressService.queryByPage(address));
     }
@@ -40,7 +40,7 @@ public class AddressController {
      * @param id 主键
      * @return 单条数据
      */
-    @GetMapping("{id}")
+    @GetMapping("get/{id}")
     public ResponseEntity<Address> queryById(@PathVariable("id") Integer id) {
         return ResponseEntity.ok(this.addressService.queryById(id));
     }
@@ -51,8 +51,8 @@ public class AddressController {
      * @param address 实体
      * @return 新增结果
      */
-    @PostMapping
-    public ResponseEntity<Address> add(Address address) {
+    @PostMapping("add")
+    public ResponseEntity<Address> add(@RequestBody Address address) {
         return ResponseEntity.ok(this.addressService.insert(address));
     }
 
@@ -62,8 +62,8 @@ public class AddressController {
      * @param address 实体
      * @return 编辑结果
      */
-    @PutMapping
-    public ResponseEntity<Address> edit(Address address) {
+    @PostMapping("edit")
+    public ResponseEntity<Address> edit(@RequestBody Address address) {
         return ResponseEntity.ok(this.addressService.update(address));
     }
 
@@ -73,8 +73,8 @@ public class AddressController {
      * @param id 主键
      * @return 删除是否成功
      */
-    @DeleteMapping
-    public ResponseEntity<Boolean> deleteById(Integer id) {
+    @GetMapping("delete/{id}")
+    public ResponseEntity<Boolean> deleteById(@PathVariable("id") Integer id) {
         return ResponseEntity.ok(this.addressService.deleteById(id));
     }
 
