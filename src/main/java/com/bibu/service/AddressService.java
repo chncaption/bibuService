@@ -3,6 +3,8 @@ package com.bibu.service;
 import com.bibu.entity.Address;
 import com.github.pagehelper.PageInfo;
 
+import java.util.List;
+
 /**
  * 地区表(Address)表服务接口
  *
@@ -26,6 +28,21 @@ public interface AddressService {
      * @return 查询结果
      */
     PageInfo<Address> queryByPage(Address address);
+
+    /**
+     * 获取省份列表
+     *
+     * @return 获取所有省份
+     */
+    List<Address> getProvincialList();
+
+    /**
+     * 获取城市列表
+     *
+     * @param address 实体类
+     * @return 返回所有城市列表
+     */
+    List<Address> getCityList(Address address);
 
     /**
      * 新增数据

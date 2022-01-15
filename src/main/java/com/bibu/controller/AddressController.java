@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * 地区表(Address)表控制层
@@ -32,6 +33,27 @@ public class AddressController {
     @PostMapping("list")  //pageNum,pageSize,sortField
     public ResponseEntity<PageInfo<Address>> queryByPage(@RequestBody Address address) {
         return ResponseEntity.ok(this.addressService.queryByPage(address));
+    }
+
+    /**
+     * 获取省份列表
+     *
+     * @return 获取所有省份
+     */
+    @PostMapping("getProvincialList")
+    public ResponseEntity<List<Address>> getProvincialList() {
+        return ResponseEntity.ok(this.addressService.getProvincialList());
+    }
+
+    /**
+     * 获取城市列表
+     *
+     * @param address 实体类
+     * @return 返回所有城市列表
+     */
+    @PostMapping("getCityList")
+    public ResponseEntity<List<Address>> getCityList(@RequestBody Address address) {
+        return ResponseEntity.ok(this.addressService.getCityList(address));
     }
 
     /**

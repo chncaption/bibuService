@@ -32,6 +32,21 @@ public interface AddressDao {
     List<Address> queryAllByLimit(@Param("address") Address address);
 
     /**
+     * 获取省份列表
+     *
+     * @return 省份列表
+     */
+    List<Address> getProvincialList();
+
+    /**
+     * 获取城市列表
+     *
+     * @param address 实体类
+     * @return 返回所有城市列表
+     */
+    List<Address> getCityList(Address address);
+
+    /**
      * 统计总行数
      *
      * @param address 查询条件

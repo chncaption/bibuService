@@ -47,6 +47,28 @@ public class AddressServiceImpl implements AddressService {
     }
 
     /**
+     * 获取省份列表
+     *
+     * @return 获取所有省份
+     */
+    @Override
+    public List<Address> getProvincialList() {
+        return addressDao.getProvincialList();
+    }
+
+    /**
+     * 获取城市列表
+     *
+     * @param address 实体类
+     * @return 返回所有城市列表
+     */
+    @Override
+    public List<Address> getCityList(Address address) {
+        return addressDao.getCityList(address);
+    }
+
+
+    /**
      * 新增数据
      *
      * @param address 实例对象

@@ -41,7 +41,7 @@
                 and city_code = #{address.cityCode}
             </if>
             <if test="address.cityName != null and address.cityName != ''">
-                and city_name = #{address.cityName}
+                and city_name like concat("%",#{address.cityName},"%")
             </if>
             <if test="address.areaCode != null and address.areaCode != ''">
                 and area_code = #{address.areaCode}
@@ -164,6 +164,25 @@
     <delete id="deleteById">
         delete from address where id = #{id}
     </delete>
+
+    <select id="getProvincialList" resultMap="AddressMap">
+        select  provincial_name,provincial_code from address group by provincial_name,provincial_code
+        order by provincial_code
+    </select>
+
+    <select id="getCityList" resultMap="AddressMap">
+        select  provincial_name,provincial_code,city_code,city_name from address
+        <where>
+            <if test="provincialCode != null and provincialCode != ''">
+                and provincial_code = #{provincialCode}
+            </if>
+            <if test="provincialName != null and provincialName != ''">
+                and provincial_name = #{provincialName}
+            </if>
+        </where>
+        group by provincial_name,provincial_code,city_code,city_name
+        order by provincial_code,city_code
+    </select>
 
 </mapper>
 
