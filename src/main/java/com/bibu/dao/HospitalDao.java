@@ -3,13 +3,14 @@ package com.bibu.dao;
 import com.bibu.entity.Hospital;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
 
 /**
  * 医院表(Hospital)表数据库访问层
  *
  * @author WeitJack
- * @since 2022-01-09 23:15:17
+ * @since 2022-01-24 21:34:22
  */
 @Mapper
 public interface HospitalDao {

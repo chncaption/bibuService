@@ -6,6 +6,7 @@ import com.bibu.service.HospitalService;
 import org.springframework.stereotype.Service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -14,7 +15,7 @@ import javax.annotation.Resource;
  * 医院表(Hospital)表服务实现类
  *
  * @author WeitJack
- * @since 2022-01-09 23:15:17
+ * @since 2022-01-24 21:34:28
  */
 @Service("hospitalService")
 public class HospitalServiceImpl implements HospitalService {
@@ -40,7 +41,7 @@ public class HospitalServiceImpl implements HospitalService {
      */
     @Override
     public PageInfo<Hospital> queryByPage(Hospital hospital) {
-        PageHelper.startPage(hospital.getPageNum(),hospital.getPageSize(), hospital.getSortField());
+        PageHelper.startPage(hospital.getPageNum(), hospital.getPageSize(), hospital.getSortField());
         List<Hospital> models = this.hospitalDao.queryAllByLimit(hospital);
         PageInfo<Hospital> pageInfo = new PageInfo<>(models);
         return pageInfo;

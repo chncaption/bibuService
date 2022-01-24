@@ -5,7 +5,14 @@
     <resultMap type="com.bibu.entity.Hospital" id="HospitalMap">
         <result property="id" column="id" jdbcType="INTEGER"/>
         <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="partId" column="part_id" jdbcType="INTEGER"/>
         <result property="addressId" column="address_id" jdbcType="INTEGER"/>
+        <result property="provincialCode" column="provincial_code" jdbcType="VARCHAR"/>
+        <result property="provincialName" column="provincial_name" jdbcType="VARCHAR"/>
+        <result property="cityCode" column="city_code" jdbcType="VARCHAR"/>
+        <result property="cityName" column="city_name" jdbcType="VARCHAR"/>
+        <result property="areaCode" column="area_code" jdbcType="VARCHAR"/>
+        <result property="areaName" column="area_name" jdbcType="VARCHAR"/>
         <result property="status" column="status" jdbcType="INTEGER"/>
     </resultMap>
 
@@ -20,21 +27,23 @@
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="HospitalMap">
         select
-          id, name, address_id, status
-        from hospital
+        h.id, h.name, h.address_id, h.part_id, h.status, provincial_code,
+        provincial_name, city_code, city_name, area_code, area_name
+        from hospital h,address a
         <where>
-            <if test="id != null">
-                and id = #{id}
-            </if>
             <if test="name != null and name != ''">
-                and name = #{name}
+                and h.name like concat("%",#{name},"%")
             </if>
-            <if test="addressId != null">
-                and address_id = #{addressId}
+            <if test="provincialCode != null and provincialCode != ''">
+                and a.provincial_code = #{provincialCode}
+            </if>
+            <if test="cityCode != null and cityCode != ''">
+                and a.city_code = #{cityCode}
             </if>
             <if test="status != null">
-                and status = #{status}
+                and h.status = #{status}
             </if>
+            and h.address_id = a.id
         </where>
     </select>
 
@@ -68,20 +77,8 @@
         insert into hospital(name, address_id, status)
         values
         <foreach collection="entities" item="entity" separator=",">
-        (#{entity.name}, #{entity.addressId}, #{entity.status})
-        </foreach>
-    </insert>
-
-    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
-        insert into hospital(name, address_id, status)
-        values
-        <foreach collection="entities" item="entity" separator=",">
             (#{entity.name}, #{entity.addressId}, #{entity.status})
         </foreach>
-        on duplicate key update
-        name = values(name),
-        address_id = values(address_id),
-        status = values(status)
     </insert>
 
     <!--通过主键修改数据-->
@@ -90,6 +87,9 @@
         <set>
             <if test="name != null and name != ''">
                 name = #{name},
+            </if>
+            <if test="partId != null">
+                part_id = #{partId},
             </if>
             <if test="addressId != null">
                 address_id = #{addressId},

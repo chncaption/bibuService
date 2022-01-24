@@ -12,7 +12,7 @@ import javax.annotation.Resource;
  * 医院表(Hospital)表控制层
  *
  * @author WeitJack
- * @since 2022-01-09 23:15:17
+ * @since 2022-01-24 21:34:19
  */
 @RestController
 @RequestMapping("api/hospital")

@@ -7,7 +7,7 @@ import com.github.pagehelper.PageInfo;
  * 医院表(Hospital)表服务接口
  *
  * @author WeitJack
- * @since 2022-01-09 23:15:17
+ * @since 2022-01-24 21:34:27
  */
 public interface HospitalService {
 
