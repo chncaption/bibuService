@@ -19,9 +19,10 @@
     <!--查询单个-->
     <select id="queryById" resultMap="HospitalMap">
         select
-          id, name, address_id, status
-        from hospital
-        where id = #{id}
+          h.id, h.name, h.address_id, h.part_id, h.status, provincial_code,
+        provincial_name, city_code, city_name, area_code, area_name
+        from hospital h,address a
+        where h.id = #{id}
     </select>
 
     <!--查询指定行数据-->

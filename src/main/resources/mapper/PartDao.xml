@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bibu.dao.PartDao">
+
+    <resultMap type="com.bibu.entity.Part" id="PartMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="addressId" column="address_id" jdbcType="INTEGER"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="subtitle" column="subtitle" jdbcType="VARCHAR"/>
+        <result property="url" column="url" jdbcType="VARCHAR"/>
+        <result property="link" column="link" jdbcType="VARCHAR"/>
+        <result property="iconUrl" column="icon_url" jdbcType="VARCHAR"/>
+        <result property="pictureUrl" column="picture_url" jdbcType="VARCHAR"/>
+        <result property="parentId" column="parent_id" jdbcType="INTEGER"/>
+        <result property="modelType" column="model_type" jdbcType="INTEGER"/>
+        <result property="modelId" column="model_id" jdbcType="INTEGER"/>
+        <result property="recommendPlateId" column="recommend_plate_id" jdbcType="INTEGER"/>
+        <result property="pcPage" column="pc_page" jdbcType="INTEGER"/>
+        <result property="mobilePage" column="mobile_page" jdbcType="INTEGER"/>
+        <result property="pcDesc" column="pc_desc" jdbcType="VARCHAR"/>
+        <result property="mobileDesc" column="mobile_desc" jdbcType="VARCHAR"/>
+        <result property="tip" column="tip" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="PartMap">
+        select
+          id, address_id, name, subtitle, url, link, icon_url, picture_url, parent_id, model_type, model_id, recommend_plate_id, pc_page, mobile_page, pc_desc, mobile_desc, tip
+        from part
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="PartMap">
+        select
+        id, address_id, name, subtitle, url, link, icon_url, picture_url, parent_id, model_type, model_id, recommend_plate_id,
+        pc_page, mobile_page, pc_desc, mobile_desc, tip
+        from part
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="addressId != null">
+                and address_id = #{addressId}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+            <if test="subtitle != null and subtitle != ''">
+                and subtitle = #{subtitle}
+            </if>
+            <if test="url != null and url != ''">
+                and url = #{url}
+            </if>
+            <if test="link != null and link != ''">
+                and link = #{link}
+            </if>
+            <if test="iconUrl != null and iconUrl != ''">
+                and icon_url = #{iconUrl}
+            </if>
+            <if test="pictureUrl != null and pictureUrl != ''">
+                and picture_url = #{pictureUrl}
+            </if>
+            <if test="parentId != null">
+                and parent_id = #{parentId}
+            </if>
+            <if test="modelType != null">
+                and model_type = #{modelType}
+            </if>
+            <if test="modelId != null">
+                and model_id = #{modelId}
+            </if>
+            <if test="recommendPlateId != null">
+                and recommend_plate_id = #{recommendPlateId}
+            </if>
+            <if test="pcPage != null">
+                and pc_page = #{pcPage}
+            </if>
+            <if test="mobilePage != null">
+                and mobile_page = #{mobilePage}
+            </if>
+            <if test="pcDesc != null and pcDesc != ''">
+                and pc_desc = #{pcDesc}
+            </if>
+            <if test="mobileDesc != null and mobileDesc != ''">
+                and mobile_desc = #{mobileDesc}
+            </if>
+            <if test="tip != null and tip != ''">
+                and tip = #{tip}
+            </if>
+        </where>
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from part
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="addressId != null">
+                and address_id = #{addressId}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+            <if test="subtitle != null and subtitle != ''">
+                and subtitle = #{subtitle}
+            </if>
+            <if test="url != null and url != ''">
+                and url = #{url}
+            </if>
+            <if test="link != null and link != ''">
+                and link = #{link}
+            </if>
+            <if test="iconUrl != null and iconUrl != ''">
+                and icon_url = #{iconUrl}
+            </if>
+            <if test="pictureUrl != null and pictureUrl != ''">
+                and picture_url = #{pictureUrl}
+            </if>
+            <if test="parentId != null">
+                and parent_id = #{parentId}
+            </if>
+            <if test="modelType != null">
+                and model_type = #{modelType}
+            </if>
+            <if test="modelId != null">
+                and model_id = #{modelId}
+            </if>
+            <if test="recommendPlateId != null">
+                and recommend_plate_id = #{recommendPlateId}
+            </if>
+            <if test="pcPage != null">
+                and pc_page = #{pcPage}
+            </if>
+            <if test="mobilePage != null">
+                and mobile_page = #{mobilePage}
+            </if>
+            <if test="pcDesc != null and pcDesc != ''">
+                and pc_desc = #{pcDesc}
+            </if>
+            <if test="mobileDesc != null and mobileDesc != ''">
+                and mobile_desc = #{mobileDesc}
+            </if>
+            <if test="tip != null and tip != ''">
+                and tip = #{tip}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into part(address_id, name, subtitle, url, link, icon_url, picture_url, parent_id, model_type, model_id, recommend_plate_id, pc_page, mobile_page, pc_desc, mobile_desc, tip)
+        values (#{addressId}, #{name}, #{subtitle}, #{url}, #{link}, #{iconUrl}, #{pictureUrl}, #{parentId}, #{modelType}, #{modelId}, #{recommendPlateId}, #{pcPage}, #{mobilePage}, #{pcDesc}, #{mobileDesc}, #{tip})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into part(address_id, name, subtitle, url, link, icon_url, picture_url, parent_id, model_type, model_id,
+        recommend_plate_id, pc_page, mobile_page, pc_desc, mobile_desc, tip)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.addressId}, #{entity.name}, #{entity.subtitle}, #{entity.url}, #{entity.link}, #{entity.iconUrl}, #{entity.pictureUrl},
+            #{entity.parentId}, #{entity.modelType}, #{entity.modelId}, #{entity.recommendPlateId}, #{entity.pcPage},
+            #{entity.mobilePage}, #{entity.pcDesc}, #{entity.mobileDesc}, #{entity.tip})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into part(address_id, name, subtitle, url, link, icon_url, picture_url, parent_id, model_type, model_id,
+        recommend_plate_id, pc_page, mobile_page, pc_desc, mobile_desc, tip)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.addressId}, #{entity.name}, #{entity.subtitle}, #{entity.url}, #{entity.link}, #{entity.iconUrl}, #{entity.pictureUrl},
+            #{entity.parentId}, #{entity.modelType}, #{entity.modelId}, #{entity.recommendPlateId}, #{entity.pcPage},
+            #{entity.mobilePage}, #{entity.pcDesc}, #{entity.mobileDesc}, #{entity.tip})
+        </foreach>
+        on duplicate key update
+        address_id = values(address_id),
+        name = values(name),
+        subtitle = values(subtitle),
+        url = values(url),
+        link = values(link),
+        icon_url = values(icon_url),
+        picture_url = values(picture_url),
+        parent_id = values(parent_id),
+        model_type = values(model_type),
+        model_id = values(model_id),
+        recommend_plate_id = values(recommend_plate_id),
+        pc_page = values(pc_page),
+        mobile_page = values(mobile_page),
+        pc_desc = values(pc_desc),
+        mobile_desc = values(mobile_desc),
+        tip = values(tip)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update part
+        <set>
+            <if test="addressId != null">
+                address_id = #{addressId},
+            </if>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="subtitle != null and subtitle != ''">
+                subtitle = #{subtitle},
+            </if>
+            <if test="url != null and url != ''">
+                url = #{url},
+            </if>
+            <if test="link != null and link != ''">
+                link = #{link},
+            </if>
+            <if test="iconUrl != null and iconUrl != ''">
+                icon_url = #{iconUrl},
+            </if>
+            <if test="pictureUrl != null and pictureUrl != ''">
+                picture_url = #{pictureUrl},
+            </if>
+            <if test="parentId != null">
+                parent_id = #{parentId},
+            </if>
+            <if test="modelType != null">
+                model_type = #{modelType},
+            </if>
+            <if test="modelId != null">
+                model_id = #{modelId},
+            </if>
+            <if test="recommendPlateId != null">
+                recommend_plate_id = #{recommendPlateId},
+            </if>
+            <if test="pcPage != null">
+                pc_page = #{pcPage},
+            </if>
+            <if test="mobilePage != null">
+                mobile_page = #{mobilePage},
+            </if>
+            <if test="pcDesc != null and pcDesc != ''">
+                pc_desc = #{pcDesc},
+            </if>
+            <if test="mobileDesc != null and mobileDesc != ''">
+                mobile_desc = #{mobileDesc},
+            </if>
+            <if test="tip != null and tip != ''">
+                tip = #{tip},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from part where id = #{id}
+    </delete>
+
+</mapper>
+
