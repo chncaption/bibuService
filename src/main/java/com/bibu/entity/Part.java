@@ -80,6 +80,10 @@ public class Part extends PageBean implements Serializable {
      * 提示
      */
     private String tip;
+    /**
+     * 状态
+     */
+    private Integer status;
 
 
     public Integer getId() {
@@ -218,5 +222,12 @@ public class Part extends PageBean implements Serializable {
         this.tip = tip;
     }
 
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
 }
 

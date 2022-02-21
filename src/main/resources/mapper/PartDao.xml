@@ -20,12 +20,13 @@
         <result property="pcDesc" column="pc_desc" jdbcType="VARCHAR"/>
         <result property="mobileDesc" column="mobile_desc" jdbcType="VARCHAR"/>
         <result property="tip" column="tip" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
     </resultMap>
 
     <!--查询单个-->
     <select id="queryById" resultMap="PartMap">
         select
-          id, address_id, name, subtitle, url, link, icon_url, picture_url, parent_id, model_type, model_id, recommend_plate_id, pc_page, mobile_page, pc_desc, mobile_desc, tip
+          id, address_id, name, subtitle, url, link, icon_url, picture_url, parent_id, model_type, model_id, recommend_plate_id, pc_page, mobile_page, pc_desc, mobile_desc, tip ,status
         from part
         where id = #{id}
     </select>
@@ -34,7 +35,7 @@
     <select id="queryAllByLimit" resultMap="PartMap">
         select
         id, address_id, name, subtitle, url, link, icon_url, picture_url, parent_id, model_type, model_id, recommend_plate_id,
-        pc_page, mobile_page, pc_desc, mobile_desc, tip
+        pc_page, mobile_page, pc_desc, mobile_desc, tip, status
         from part
         <where>
             <if test="id != null">
@@ -87,6 +88,9 @@
             </if>
             <if test="tip != null and tip != ''">
                 and tip = #{tip}
+            </if>
+            <if test="status != null">
+                and status = #{status}
             </if>
         </where>
     </select>
@@ -147,13 +151,16 @@
             <if test="tip != null and tip != ''">
                 and tip = #{tip}
             </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
         </where>
     </select>
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into part(address_id, name, subtitle, url, link, icon_url, picture_url, parent_id, model_type, model_id, recommend_plate_id, pc_page, mobile_page, pc_desc, mobile_desc, tip)
-        values (#{addressId}, #{name}, #{subtitle}, #{url}, #{link}, #{iconUrl}, #{pictureUrl}, #{parentId}, #{modelType}, #{modelId}, #{recommendPlateId}, #{pcPage}, #{mobilePage}, #{pcDesc}, #{mobileDesc}, #{tip})
+        insert into part(address_id, name, subtitle, url, link, icon_url, picture_url, parent_id, model_type, model_id, recommend_plate_id, pc_page, mobile_page, pc_desc, mobile_desc, tip ,status)
+        values (#{addressId}, #{name}, #{subtitle}, #{url}, #{link}, #{iconUrl}, #{pictureUrl}, #{parentId}, #{modelType}, #{modelId}, #{recommendPlateId}, #{pcPage}, #{mobilePage}, #{pcDesc}, #{mobileDesc}, #{tip}, #{status})
     </insert>
 
     <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
@@ -246,6 +253,9 @@
             </if>
             <if test="tip != null and tip != ''">
                 tip = #{tip},
+            </if>
+            <if test="status != null">
+                status = #{status},
             </if>
         </set>
         where id = #{id}
