@@ -30,7 +30,18 @@ public class PartController {
      * @return 查询结果
      */
     @PostMapping("list")
-    public ResponseEntity<List<Part>> getPartList(@RequestBody Part part) {
+    public ResponseEntity<List<Part>> getList(@RequestBody Part part) {
+        return ResponseEntity.ok(this.partService.getPartList(part));
+    }
+
+    /**
+     * 获取所有part，无参数版
+     *
+     * @return 查询结果
+     */
+    @PostMapping("getPartList")
+    public ResponseEntity<List<Part>> getPartList() {
+        Part part = new Part();
         return ResponseEntity.ok(this.partService.getPartList(part));
     }
 
