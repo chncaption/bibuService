@@ -2,6 +2,7 @@ package com.bibu.controller;
 
 import com.bibu.entity.Part;
 import com.bibu.service.PartService;
+import com.bibu.tool.PartTree;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -43,6 +44,19 @@ public class PartController {
     public ResponseEntity<List<Part>> getPartList() {
         Part part = new Part();
         return ResponseEntity.ok(this.partService.getPartList(part));
+    }
+
+    /**
+     * 获取part树结构
+     *
+     * @return 查询结果
+     */
+    @PostMapping("getPartTree")
+    public ResponseEntity<List<Part>> getPartTree() {
+        Part part = new Part();
+        List<Part> partList = this.partService.getPartList(part);
+        PartTree partTree = new PartTree(partList);
+        return ResponseEntity.ok(partTree.buildTree());
     }
 
     /**

@@ -3,6 +3,7 @@ package com.bibu.entity;
 import com.bibu.bean.PageBean;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * 网站栏目表(Part)实体类
@@ -84,6 +85,11 @@ public class Part extends PageBean implements Serializable {
      * 状态
      */
     private Integer status;
+
+    /**
+     * 子节点
+     */
+    private List<Part> children;
 
 
     public Integer getId() {
@@ -228,6 +234,14 @@ public class Part extends PageBean implements Serializable {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public List<Part> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<Part> children) {
+        this.children = children;
     }
 }
 
