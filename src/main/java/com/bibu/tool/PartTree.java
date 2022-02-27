@@ -13,9 +13,10 @@ import java.util.List;
  */
 public class PartTree {
 
-    private final List<Part> PartList;
-    public PartTree(List<Part> PartList) {
-        this.PartList = PartList;
+    private final List<Part> partList;
+
+    public PartTree(List<Part> partList) {
+        this.partList = partList;
     }
 
     /**
@@ -24,9 +25,9 @@ public class PartTree {
      */
     public List<Part> buildTree(){
         List<Part> treeParts = new ArrayList<>();
-        for(Part PartNode : getRootNode()) {
-            buildChildTree(PartNode);
-            treeParts.add(PartNode);
+        for(Part partNode : getRootNode()) {
+            buildChildTree(partNode);
+            treeParts.add(partNode);
         }
         return treeParts;
     }
@@ -38,9 +39,9 @@ public class PartTree {
      */
     private Part buildChildTree(Part pNode){
         List<Part> childParts = new ArrayList<>();
-        for(Part PartNode : PartList) {
-            if(PartNode.getParentId().equals(pNode.getId())) {
-                childParts.add(buildChildTree(PartNode));
+        for(Part partNode : partList) {
+            if(partNode.getParentId().equals(pNode.getId())) {
+                childParts.add(buildChildTree(partNode));
             }
         }
         pNode.setChildren(childParts);
@@ -54,9 +55,9 @@ public class PartTree {
      */
     private List<Part> getRootNode() {
         List<Part> rootPartLists =new  ArrayList<>();
-        for(Part PartNode : PartList) {
-            if(PartNode.getParentId() == 0) {
-                rootPartLists.add(PartNode);
+        for(Part partNode : partList) {
+            if(partNode.getParentId() == 0) {
+                rootPartLists.add(partNode);
             }
         }
         return rootPartLists;
