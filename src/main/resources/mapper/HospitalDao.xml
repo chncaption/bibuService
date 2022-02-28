@@ -22,7 +22,7 @@
           h.id, h.name, h.address_id, h.part_id, h.status, provincial_code,
         provincial_name, city_code, city_name, area_code, area_name
         from hospital h,address a
-        where h.id = #{id}
+        where h.id = #{id} and h.address_id = a.id
     </select>
 
     <!--查询指定行数据-->
