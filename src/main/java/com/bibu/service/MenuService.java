@@ -3,6 +3,8 @@ package com.bibu.service;
 import com.bibu.entity.Menu;
 import com.github.pagehelper.PageInfo;
 
+import java.util.List;
+
 /**
  * 网站导航表(Menu)表服务接口
  *
@@ -25,7 +27,7 @@ public interface MenuService {
      * @param menu 筛选条件
      * @return 查询结果
      */
-    PageInfo<Menu> queryByPage(Menu menu);
+    List<Menu> queryByPage(Menu menu);
 
     /**
      * 新增数据

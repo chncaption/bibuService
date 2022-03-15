@@ -39,11 +39,8 @@ public class MenuServiceImpl implements MenuService {
      * @return 查询结果
      */
     @Override
-    public PageInfo<Menu> queryByPage(Menu menu) {
-        PageHelper.startPage(menu.getPageNum(),menu.getPageSize(), menu.getSortField());
-        List<Menu> models = this.menuDao.queryAllByLimit(menu);
-        PageInfo<Menu> pageInfo = new PageInfo<>(models);
-        return pageInfo;
+    public List<Menu> queryByPage(Menu menu) {
+        return this.menuDao.queryAllByLimit(menu);
     }
 
     /**

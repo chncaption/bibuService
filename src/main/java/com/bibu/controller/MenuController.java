@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * 网站导航表(Menu)表控制层
@@ -26,11 +27,11 @@ public class MenuController {
     /**
      * 分页查询
      *
-     * @param menu 筛选条件
      * @return 查询结果
      */
     @PostMapping("list")
-    public ResponseEntity<PageInfo<Menu>> queryByPage(@RequestBody Menu menu) {
+    public ResponseEntity<List<Menu>> queryByPage() {
+        Menu menu = new Menu();
         return ResponseEntity.ok(this.menuService.queryByPage(menu));
     }
 
