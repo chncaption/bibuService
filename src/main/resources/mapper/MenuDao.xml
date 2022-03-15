@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bibu.dao.MenuDao">
+
+    <resultMap type="com.bibu.entity.Menu" id="MenuMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="partId" column="part_id" jdbcType="INTEGER"/>
+        <result property="subtitle" column="subtitle" jdbcType="VARCHAR"/>
+        <result property="modelName" column="model_name" jdbcType="VARCHAR"/>
+        <result property="url" column="url" jdbcType="VARCHAR"/>
+        <result property="openType" column="open_type" jdbcType="INTEGER"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="MenuMap">
+        select
+          id, name, part_id, subtitle, model_name, url, open_type, status
+        from menu
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="MenuMap">
+        select
+          id, name, part_id, subtitle, model_name, url, open_type, status
+        from menu
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+            <if test="partId != null">
+                and part_id = #{partId}
+            </if>
+            <if test="subtitle != null and subtitle != ''">
+                and subtitle = #{subtitle}
+            </if>
+            <if test="modelName != null and modelName != ''">
+                and model_name = #{modelName}
+            </if>
+            <if test="url != null and url != ''">
+                and url = #{url}
+            </if>
+            <if test="openType != null">
+                and open_type = #{openType}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+        </where>
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from menu
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+            <if test="partId != null">
+                and part_id = #{partId}
+            </if>
+            <if test="subtitle != null and subtitle != ''">
+                and subtitle = #{subtitle}
+            </if>
+            <if test="modelName != null and modelName != ''">
+                and model_name = #{modelName}
+            </if>
+            <if test="url != null and url != ''">
+                and url = #{url}
+            </if>
+            <if test="openType != null">
+                and open_type = #{openType}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into menu(name, part_id, subtitle, model_name, url, open_type, status)
+        values (#{name}, #{partId}, #{subtitle}, #{modelName}, #{url}, #{openType}, #{status})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into menu(name, part_id, subtitle, model_name, url, open_type, status)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+        (#{entity.name}, #{entity.partId}, #{entity.subtitle}, #{entity.modelName}, #{entity.url}, #{entity.openType}, #{entity.status})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into menu(name, part_id, subtitle, model_name, url, open_type, status)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.name}, #{entity.partId}, #{entity.subtitle}, #{entity.modelName}, #{entity.url}, #{entity.openType}, #{entity.status})
+        </foreach>
+        on duplicate key update
+        name = values(name),
+        part_id = values(part_id),
+        subtitle = values(subtitle),
+        model_name = values(model_name),
+        url = values(url),
+        open_type = values(open_type),
+        status = values(status)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update menu
+        <set>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="partId != null">
+                part_id = #{partId},
+            </if>
+            <if test="subtitle != null and subtitle != ''">
+                subtitle = #{subtitle},
+            </if>
+            <if test="modelName != null and modelName != ''">
+                model_name = #{modelName},
+            </if>
+            <if test="url != null and url != ''">
+                url = #{url},
+            </if>
+            <if test="openType != null">
+                open_type = #{openType},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from menu where id = #{id}
+    </delete>
+
+</mapper>
+
