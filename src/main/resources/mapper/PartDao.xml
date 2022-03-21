@@ -20,13 +20,16 @@
         <result property="pcDesc" column="pc_desc" jdbcType="VARCHAR"/>
         <result property="mobileDesc" column="mobile_desc" jdbcType="VARCHAR"/>
         <result property="tip" column="tip" jdbcType="VARCHAR"/>
+        <result property="title" column="title" jdbcType="VARCHAR"/>
+        <result property="keyword" column="keyword" jdbcType="VARCHAR"/>
+        <result property="decs" column="decs" jdbcType="VARCHAR"/>
         <result property="status" column="status" jdbcType="INTEGER"/>
     </resultMap>
 
     <!--查询单个-->
     <select id="queryById" resultMap="PartMap">
         select
-          id, address_id, name, subtitle, url, link, icon_url, picture_url, parent_id, model_type, model_id, recommend_plate_id, pc_page, mobile_page, pc_desc, mobile_desc, tip ,status
+          id, address_id, name, subtitle, url, link, icon_url, picture_url, parent_id, model_type, model_id, recommend_plate_id, pc_page, mobile_page, pc_desc, mobile_desc, tip, title, keyword, `desc`, status
         from part
         where id = #{id}
     </select>
@@ -35,7 +38,7 @@
     <select id="queryAllByLimit" resultMap="PartMap">
         select
         id, address_id, name, subtitle, url, link, icon_url, picture_url, parent_id, model_type, model_id, recommend_plate_id,
-        pc_page, mobile_page, pc_desc, mobile_desc, tip, status
+        pc_page, mobile_page, pc_desc, mobile_desc, tip, title, keyword, `desc`, status
         from part
         <where>
             <if test="id != null">
@@ -253,6 +256,15 @@
             </if>
             <if test="tip != null and tip != ''">
                 tip = #{tip},
+            </if>
+            <if test="title != null and title != ''">
+                title = #{title},
+            </if>
+            <if test="keyword != null and keyword != ''">
+                keyword = #{keyword},
+            </if>
+            <if test="desc != null and desc != ''">
+                `desc` = #{desc},
             </if>
             <if test="status != null">
                 status = #{status},

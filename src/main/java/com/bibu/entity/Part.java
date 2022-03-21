@@ -82,9 +82,22 @@ public class Part extends PageBean implements Serializable {
      */
     private String tip;
     /**
+     * 标题
+     */
+    private String title;
+    /**
+     * 关键字
+     */
+    private String keyword;
+    /**
+     * 描述
+     */
+    private String decs;
+    /**
      * 状态
      */
     private Integer status;
+
 
     /**
      * 子节点
@@ -226,6 +239,30 @@ public class Part extends PageBean implements Serializable {
 
     public void setTip(String tip) {
         this.tip = tip;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getKeyword() {
+        return keyword;
+    }
+
+    public void setKeyword(String keyword) {
+        this.keyword = keyword;
+    }
+
+    public String getDecs() {
+        return decs;
+    }
+
+    public void setDecs(String decs) {
+        this.decs = decs;
     }
 
     public Integer getStatus() {

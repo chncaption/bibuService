@@ -1,5 +1,6 @@
 package com.bibu.service.impl;
 
+import com.bibu.dao.HospitalDao;
 import com.bibu.entity.Part;
 import com.bibu.dao.PartDao;
 import com.bibu.service.PartService;
@@ -21,6 +22,9 @@ import javax.annotation.Resource;
 public class PartServiceImpl implements PartService {
     @Resource
     private PartDao partDao;
+
+    @Resource
+    private HospitalDao hospitalDao;
 
     /**
      * 通过ID查询单条数据
@@ -89,6 +93,8 @@ public class PartServiceImpl implements PartService {
      */
     @Override
     public boolean deleteById(Integer id) {
-        return this.partDao.deleteById(id) > 0;
+        int hospitalFlag = this.hospitalDao.deleteById(id);
+        int partFlag = this.partDao.deleteById(id);
+        return hospitalFlag > 0 && partFlag > 0;
     }
 }

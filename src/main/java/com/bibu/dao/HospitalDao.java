@@ -55,14 +55,6 @@ public interface HospitalDao {
      */
     int insertBatch(@Param("entities") List<Hospital> entities);
 
-    /**
-     * 批量新增或按主键更新数据（MyBatis原生foreach方法）
-     *
-     * @param entities List<Hospital> 实例对象列表
-     * @return 影响行数
-     * @throws org.springframework.jdbc.BadSqlGrammarException 入参是空List的时候会抛SQL语句错误的异常，请自行校验入参
-     */
-    int insertOrUpdateBatch(@Param("entities") List<Hospital> entities);
 
     /**
      * 修改数据
@@ -79,6 +71,14 @@ public interface HospitalDao {
      * @return 影响行数
      */
     int deleteById(Integer id);
+
+    /**
+     * 通过栏目Id删除数据
+     *
+     * @param partId partId
+     * @return 影响行数
+     */
+    int deleteByPartId(Integer partId);
 
 }
 

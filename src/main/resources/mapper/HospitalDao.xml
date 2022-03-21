@@ -107,5 +107,10 @@
         delete from hospital where id = #{id}
     </delete>
 
+    <!--通过主键删除-->
+    <delete id="deleteByPartId">
+        delete from hospital where part_id = #{partId}
+    </delete>
+
 </mapper>
 
